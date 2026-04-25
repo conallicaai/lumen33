@@ -155,10 +155,31 @@ export default function ChatPage() {
       {/* Left Sidebar: LUMEN Core Stats */}
       <aside className="hidden md:flex w-64 bg-[#0a1219] border-r border-[#1a2d3d] flex-col p-6 flex-shrink-0">
         <div className="mb-8">
-          <div className="w-24 h-24 mx-auto relative mb-4">
-            <div className="absolute inset-0 rounded-full bg-[#2dd4bf] opacity-20 animate-pulse"></div>
-            <div className="absolute inset-2 rounded-full border-2 border-dashed border-[#2dd4bf] opacity-40"></div>
-            <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-[#134e4a] to-[#2dd4bf] flex items-center justify-center shadow-[0_0_20px_rgba(45,212,191,0.3)]">
+          <div className="w-24 h-24 mx-auto relative mb-4 rounded-full overflow-hidden border-2 border-dashed border-[#2dd4bf] shadow-[0_0_20px_rgba(45,212,191,0.4)] bg-[#05090e]">
+            {/* Bubble animation background */}
+            <div className="absolute inset-x-0 bottom-0 top-0 z-0 overflow-hidden">
+              <div className="absolute bottom-[-10px] left-[20%] w-2 h-2 bg-[#2dd4bf]/60 rounded-full animate-[rise_3s_ease-in-out_infinite_0s]"></div>
+              <div className="absolute bottom-[-10px] left-[50%] w-3 h-3 bg-[#2dd4bf]/40 rounded-full animate-[rise_4s_ease-in-out_infinite_1s]"></div>
+              <div className="absolute bottom-[-10px] left-[70%] w-1.5 h-1.5 bg-[#2dd4bf]/70 rounded-full animate-[rise_2.5s_ease-in-out_infinite_0.5s]"></div>
+              <div className="absolute bottom-[-10px] left-[30%] w-2.5 h-2.5 bg-[#2dd4bf]/50 rounded-full animate-[rise_3.5s_ease-in-out_infinite_1.5s]"></div>
+            </div>
+            
+            {/* Pulpo Image */}
+            <img 
+              src="/pulpo_pensando.png" 
+              alt="L.U.M.E.N. Pensando" 
+              className="absolute inset-0 w-full h-full object-cover z-10 animate-[pulse_4s_ease-in-out_infinite]"
+              onError={(e) => {
+                // Fallback si la imagen no se ha subido aún
+                e.currentTarget.style.display = 'none';
+                if(e.currentTarget.nextElementSibling) {
+                  e.currentTarget.nextElementSibling.classList.remove('hidden');
+                }
+              }}
+            />
+            
+            {/* Fallback pattern */}
+            <div className="absolute inset-2 hidden rounded-full bg-gradient-to-tr from-[#134e4a] to-[#2dd4bf] items-center justify-center z-10 flex">
               <svg viewBox="0 0 24 24" className="w-10 h-10 text-white" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 <circle cx="12" cy="11" r="3" />

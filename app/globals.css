@@ -10,3 +10,9 @@ body {
   @apply bg-[#05090e] text-[#e0f2f1];
   font-family: sans-serif;
 }
+
+@keyframes rise {
+  0% { transform: translateY(20px) scale(0.5); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+}
