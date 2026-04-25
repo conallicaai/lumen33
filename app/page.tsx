@@ -8,6 +8,7 @@ type Message = {
 };
 
 export default function ChatPage() {
+  const [showIntro, setShowIntro] = useState(true);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -19,10 +20,10 @@ export default function ChatPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
+    if (scrollRef.current && !showIntro) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages, isLoading]);
+  }, [messages, isLoading, showIntro]);
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
@@ -108,6 +109,46 @@ export default function ChatPage() {
       </div>
     );
   };
+
+  if (showIntro) {
+    return (
+      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#05090e] text-[#e0f2f1]">
+        <video 
+          className="w-full h-full object-cover absolute inset-0 z-0 opacity-80"
+          autoPlay 
+          muted 
+          playsInline 
+          onEnded={() => setShowIntro(false)}
+        >
+          {/* Asumimos que el video se subió a /public con el nombre Animación_de_Imagen_Generada.mp4 */}
+          <source src="/Animacion_de_Imagen_Generada.mp4" type="video/mp4" />
+          Tu navegador no soporta la etiqueta de video.
+        </video>
+        
+        <div className="z-10 relative flex flex-col items-center">
+          <div className="w-24 h-24 mx-auto relative mb-6">
+            <div className="absolute inset-0 rounded-full bg-[#2dd4bf] opacity-30 animate-pulse [animation-duration:2s]"></div>
+            <div className="absolute inset-2 rounded-full border-2 border-dashed border-[#2dd4bf] opacity-60 animate-spin [animation-duration:10s]"></div>
+            <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-[#134e4a] to-[#2dd4bf] flex items-center justify-center shadow-[0_0_30px_rgba(45,212,191,0.6)]">
+              <svg viewBox="0 0 24 24" className="w-10 h-10 text-white" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <circle cx="12" cy="11" r="3" />
+              </svg>
+            </div>
+          </div>
+          <h1 className="text-3xl font-bold tracking-widest text-[#2dd4bf] mb-2 drop-shadow-lg">L.U.M.E.N.</h1>
+          <p className="text-sm uppercase tracking-[0.3em] opacity-80 mb-8 drop-shadow-md">Iniciando Sistemas de Biomasa...</p>
+          
+          <button 
+            onClick={() => setShowIntro(false)}
+            className="px-8 py-3 bg-[#1a2d3d]/80 hover:bg-[#2dd4bf] hover:text-[#05090e] border border-[#2dd4bf]/40 rounded-full font-bold uppercase tracking-widest text-xs transition-all duration-300 backdrop-blur-sm"
+          >
+            Saltar Secuencia
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex bg-[#05090e] text-[#e0f2f1] font-sans overflow-hidden select-none h-screen w-full">
