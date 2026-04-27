@@ -1,6 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 const SYSTEM_INSTRUCTIONS = `
 ESQUEMA P.R.O.F.E. PARA CHATBOT EDUCATIVO
 
